@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pradosh Kumar Rout — Digital Marketer & Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--surface:#111;--border:#222;
+  --accent:#e8ff3e;--accent2:#ff6b35;
+  --text:#f0ede6;--muted:#666;--card:#141414;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-size:14px;line-height:1.6;overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+#cur{width:10px;height:10px;background:var(--accent);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s,background .2s}
+#cur-ring{width:36px;height:36px;border:1.5px solid var(--accent);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s;opacity:.6}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:22px 48px;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(10,10,10,.9);backdrop-filter:blur(14px);border-color:var(--border)}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:19px;color:var(--accent);letter-spacing:-.5px}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:11px;letter-spacing:.1em;text-transform:uppercase;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--accent);transition:width .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 48px 80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Syne',sans-serif;font-size:clamp(100px,17vw,260px);font-weight:800;color:transparent;-webkit-text-stroke:1px #1d1d1d;white-space:nowrap;pointer-events:none;user-select:none;letter-spacing:-4px;animation:float 9s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-18px)}}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;animation:fadeUp .8s .2s both}
+.hero-badge::before{content:'';display:block;width:36px;height:1px;background:var(--accent)}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(48px,8vw,108px);font-weight:800;line-height:.9;letter-spacing:-3px;animation:fadeUp .8s .4s both}
+.hero h1 span{color:var(--accent)}
+.hero-sub{margin-top:28px;max-width:460px;color:var(--muted);font-size:13px;line-height:1.9;animation:fadeUp .8s .6s both}
+.hero-cta{margin-top:44px;display:flex;gap:14px;animation:fadeUp .8s .8s both}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:none;transition:transform .2s,background .2s,color .2s,border-color .2s}
+.btn:hover{transform:translateY(-3px)}
+.btn-fill{background:var(--accent);color:#0a0a0a;border:1px solid var(--accent)}
+.btn-fill:hover{background:#fff;border-color:#fff}
+.btn-out{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-out:hover{border-color:var(--text)}
+.hero-scroll{position:absolute;bottom:44px;right:48px;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:10px;letter-spacing:.14em;writing-mode:vertical-rl;animation:fadeIn 1s 1.3s both}
+.scroll-bar{width:1px;height:56px;background:var(--border);overflow:hidden;position:relative}
+.scroll-bar::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--accent);animation:scrollDrop 2s 1.6s ease-in-out infinite}
+@keyframes scrollDrop{0%{top:-100%}100%{top:200%}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* SECTIONS */
+section{padding:110px 48px}
+.sec-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:44px;display:flex;align-items:center;gap:10px}
+.sec-label span{color:var(--muted)}
+h2{font-family:'Syne',sans-serif;font-size:clamp(34px,5vw,62px);font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:60px}
+
+/* ABOUT */
+.about{border-top:1px solid var(--border)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.about-text p{color:var(--muted);line-height:2;margin-bottom:18px}
+.about-text strong{color:var(--text);font-weight:400}
+.about-text .cta{margin-top:30px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.stat{background:var(--card);border:1px solid var(--border);padding:28px;transition:border-color .3s;position:relative;overflow:hidden}
+.stat:hover{border-color:var(--accent)}
+.stat::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .3s;background:linear-gradient(135deg,rgba(232,255,62,.04) 0%,transparent 60%)}
+.stat:hover::before{opacity:1}
+.stat-num{font-family:'Syne',sans-serif;font-size:44px;font-weight:800;color:var(--accent);line-height:1;letter-spacing:-2px}
+.stat-lbl{color:var(--muted);font-size:10px;letter-spacing:.08em;margin-top:7px}
+
+/* SKILLS */
+.skills{border-top:1px solid var(--border);background:var(--surface)}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.skill{background:var(--card);border:1px solid var(--border);padding:26px 30px;display:flex;flex-direction:column;gap:14px;transition:border-color .3s,transform .3s;cursor:none}
+.skill:hover{border-color:var(--accent);transform:translateY(-4px)}
+.skill-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:700}
+.skill-bar{height:2px;background:var(--border)}
+.skill-fill{height:100%;background:var(--accent);width:0;transition:width 1.3s cubic-bezier(.4,0,.2,1)}
+.skill-pct{font-size:11px;color:var(--muted)}
+.skill-tag{font-size:10px;color:var(--accent2);letter-spacing:.06em}
+
+/* EXPERIENCE */
+.experience{border-top:1px solid var(--border)}
+.exp-list{display:flex;flex-direction:column;gap:2px}
+.exp-card{background:var(--card);border:1px solid var(--border);padding:36px 40px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;transition:border-color .3s}
+.exp-card:hover{border-color:var(--accent)}
+.exp-role{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;margin-bottom:6px}
+.exp-co{color:var(--accent);font-size:12px;letter-spacing:.08em;margin-bottom:14px}
+.exp-desc{color:var(--muted);line-height:1.9;font-size:13px}
+.exp-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.tag{font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--border);color:var(--muted)}
+.exp-right{text-align:right}
+.exp-date{font-size:11px;color:var(--muted);white-space:nowrap}
+.exp-badge{display:inline-block;margin-top:8px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;background:rgba(232,255,62,.08);color:var(--accent);border:1px solid rgba(232,255,62,.2)}
+
+/* PROJECTS */
+.projects{border-top:1px solid var(--border)}
+.proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
+.proj{background:var(--card);border:1px solid var(--border);padding:38px;position:relative;overflow:hidden;transition:border-color .3s;cursor:none}
+.proj:hover{border-color:var(--accent)}
+.proj.wide{grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;gap:44px}
+.proj::after{content:'↗';position:absolute;top:22px;right:22px;font-size:18px;color:var(--muted);transition:color .2s,transform .2s}
+.proj:hover::after{color:var(--accent);transform:translate(4px,-4px)}
+.proj-num{font-size:10px;color:var(--muted);letter-spacing:.2em;margin-bottom:20px}
+.proj-title{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.5px;margin-bottom:14px}
+.proj-desc{color:var(--muted);line-height:1.85;margin-bottom:22px;font-size:13px}
+.proj-tags{display:flex;flex-wrap:wrap;gap:7px}
+.proj-visual{background:var(--bg);border:1px solid var(--border);min-height:180px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.proj-visual::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 18px,rgba(232,255,62,.03) 18px,rgba(232,255,62,.03) 19px)}
+.proj-visual-lbl{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:#1c1c1c;letter-spacing:-2px;position:relative;z-index:1}
+
+/* CONTACT */
+.contact{border-top:1px solid var(--border);background:var(--surface)}
+.contact-inner{max-width:620px}
+.contact-inner h2{margin-bottom:20px}
+.contact-inner > p{color:var(--muted);margin-bottom:44px;line-height:1.9}
+.contact-email{font-family:'Syne',sans-serif;font-size:clamp(20px,3.2vw,40px);font-weight:800;letter-spacing:-1px;color:var(--text);text-decoration:none;position:relative;display:inline-block;transition:color .2s}
+.contact-email::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width .4s}
+.contact-email:hover{color:var(--accent)}
+.contact-email:hover::after{width:100%}
+.socials{margin-top:44px;display:flex;flex-wrap:wrap;gap:20px}
+.soc{color:var(--muted);text-decoration:none;font-size:11px;letter-spacing:.14em;text-transform:uppercase;transition:color .2s;display:flex;align-items:center;gap:6px}
+.soc::before{content:'→';font-size:12px}
+.soc:hover{color:var(--accent)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:11px;letter-spacing:.08em}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:18px 22px}
+  .nav-links{gap:16px}
+  section{padding:80px 22px}
+  .hero{padding:0 22px 64px}
+  .about-grid{grid-template-columns:1fr;gap:44px}
+  .skills-grid{grid-template-columns:repeat(2,1fr)}
+  .proj-grid{grid-template-columns:1fr}
+  .proj.wide{grid-column:span 1;grid-template-columns:1fr}
+  .exp-card{grid-template-columns:1fr}
+  .exp-right{text-align:left}
+  footer{flex-direction:column;gap:10px;text-align:center;padding:22px}
+}
+@media(max-width:560px){
+  .skills-grid{grid-template-columns:1fr}
+  .nav-links{gap:12px}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="logo">PKR.</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg">PKR</div>
+  <div class="hero-badge">Open to Opportunities — 2026</div>
+  <h1>Pradosh<br><span>Kumar Rout</span></h1>
+  <p class="hero-sub">
+    Digital Marketer &amp; aspiring Web Developer. BCA student at Lakshya Institute of Technology. Passionate about MNCs, digital growth, and becoming technically unstoppable.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-fill">See My Work ↓</a>
+    <a href="#contact" class="btn btn-out">Get in Touch</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-bar"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="sec-label">About <span>/ 01</span></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <h2>Growing fast.<br>Digitally.</h2>
+      <p>Hi, I'm <strong>Pradosh Kumar Rout</strong> — a BCA student at <strong>Lakshya Institute of Technology</strong> with a strong passion for the digital world and technology.</p>
+      <p>I have <strong>1 year of hands-on experience in Digital Marketing</strong>, working across SEO, Meta Ads, and Google Ads — helping brands grow their online visibility and reach the right audience effectively.</p>
+      <p>My goal is to build a career at a <strong>leading MNC</strong>, contributing with sharp digital marketing expertise while continuously expanding my technical skills in web development and programming.</p>
+      <p>I thrive in team environments and bring strong <strong>leadership, communication, and strategic thinking</strong> to every project I'm part of.</p>
+      <div class="cta">
+        <a href="#contact" class="btn btn-fill">Let's Work Together</a>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">1</div>
+        <div class="stat-lbl">Year in Digital Marketing</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-lbl">Ad Platforms Mastered</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7</div>
+        <div class="stat-lbl">Skills &amp; Counting</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">∞</div>
+        <div class="stat-lbl">Hunger to Grow</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <div class="sec-label">Skills <span>/ 02</span></div>
+  <h2>What I bring<br>to the table.</h2>
+  <div class="skills-grid">
+    <div class="skill" data-level="85">
+      <div class="skill-name">Digital Marketing</div>
+      <div class="skill-bar"><div class="skill-fill"></div></div>
+      <div class="skill-pct">85%</div>
+      <div class="skill-tag">1 Year Experience</div>
+    </div>
+    <div class="skill" data-level="82">
+      <div class="skill-name">SEO Management</div>
+      <div class="skill-bar"><div class="skill-fill"></div></div>
+      <div class="skill-pct">82%</div>
+      <div class="skill-tag">On-page &amp; Off-page</div>
+    </div>
+    <div class="skill" data-level="80">
+      <div class="skill-name">Meta Ads</div>
+      <div class="skill-bar"><div class="skill-fill"></div></div>
+      <div class="skill-pct">80%</div>
+      <div class="skill-tag">Facebook &amp; Instagram</div>
+    </div>
+    <div class="skill" data-level="78">
+      <div class="skill-name">Google Ads</div>
+      <div class="skill-bar"><div class="skill-fill"></div></div>
+      <div class="skill-pct">78%</div>
+      <div class="skill-tag">Search &amp; Display</div>
+    </div>
+    <div class="skill" data-level="88">
+      <div class="skill-name">Team Leadership</div>
+      <div class="skill-bar"><div class="skill-fill"></div></div>
+      <div class="skill-pct">88%</div>
+      <div class="skill-tag">Coordination &amp; Strategy</div>
+    </div>
+    <div class="skill" data-level="70">
+      <div class="skill-name">JavaScript</div>
+      <div class="skill-bar"><div class="skill-fill"></div></div>
+      <div class="skill-pct">70%</div>
+      <div class="skill-tag">Learning &amp; Growing</div>
+    </div>
+    <div class="skill" data-level="68">
+      <div class="skill-name">HTML &amp; CSS</div>
+      <div class="skill-bar"><div class="skill-fill"></div></div>
+      <div class="skill-pct">68%</div>
+      <div class="skill-tag">Fundamentals Strong</div>
+    </div>
+    <div class="skill" data-level="75">
+      <div class="skill-name">Content Strategy</div>
+      <div class="skill-bar"><div class="skill-fill"></div></div>
+      <div class="skill-pct">75%</div>
+      <div class="skill-tag">Organic Growth</div>
+    </div>
+    <div class="skill" data-level="72">
+      <div class="skill-name">Analytics &amp; Reporting</div>
+      <div class="skill-bar"><div class="skill-fill"></div></div>
+      <div class="skill-pct">72%</div>
+      <div class="skill-tag">GA4 &amp; Insights</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="sec-label">Experience <span>/ 03</span></div>
+  <h2>My journey<br>so far.</h2>
+  <div class="exp-list">
+    <div class="exp-card">
+      <div>
+        <div class="exp-role">Digital Marketing Executive</div>
+        <div class="exp-co">Digital Marketing · 1 Year Hands-on Experience</div>
+        <div class="exp-desc">Managed end-to-end digital marketing operations including SEO audits, keyword strategy, on-page optimization, and link building. Planned and executed paid ad campaigns across Meta and Google platforms with a focus on lead generation and brand visibility. Monitored performance metrics and prepared detailed reports to improve ROI and campaign effectiveness.</div>
+        <div class="exp-tags">
+          <span class="tag">SEO</span>
+          <span class="tag">Meta Ads</span>
+          <span class="tag">Google Ads</span>
+          <span class="tag">Analytics</span>
+          <span class="tag">Lead Generation</span>
+        </div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-date">2023 — 2024</div>
+        <div class="exp-badge">1 Year</div>
+      </div>
+    </div>
+    <div class="exp-card">
+      <div>
+        <div class="exp-role">BCA Student</div>
+        <div class="exp-co">Lakshya Institute of Technology, Odisha</div>
+        <div class="exp-desc">Pursuing Bachelor of Computer Applications (BCA), building a strong foundation in computer science, programming, databases, and software engineering. Actively learning JavaScript, web development fundamentals, and data structures — combining academic learning with real-world digital marketing experience for a well-rounded tech profile.</div>
+        <div class="exp-tags">
+          <span class="tag">BCA</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">HTML &amp; CSS</span>
+          <span class="tag">Programming</span>
+          <span class="tag">Databases</span>
+        </div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-date">2023 — Present</div>
+        <div class="exp-badge">Ongoing</div>
+      </div>
+    </div>
+    <div class="exp-card">
+      <div>
+        <div class="exp-role">Team Leader</div>
+        <div class="exp-co">Academic &amp; Professional Projects</div>
+        <div class="exp-desc">Led teams across academic and professional settings — assigning roles, coordinating between members, managing deadlines, and ensuring high-quality delivery. Developed strong interpersonal, problem-solving, and strategic communication skills that translate effectively into both technical and business environments.</div>
+        <div class="exp-tags">
+          <span class="tag">Leadership</span>
+          <span class="tag">Communication</span>
+          <span class="tag">Planning</span>
+          <span class="tag">Team Building</span>
+        </div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-date">2023 — Present</div>
+        <div class="exp-badge">Active</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="sec-label">Projects &amp; Work <span>/ 04</span></div>
+  <h2>Selected<br>work.</h2>
+  <div class="proj-grid">
+    <div class="proj wide">
+      <div>
+        <div class="proj-num">001 — Featured</div>
+        <div class="proj-title">SEO Growth Campaign</div>
+        <div class="proj-desc">Managed a complete SEO strategy for a brand — keyword research, competitor analysis, on-page optimization, technical SEO audits, and backlink building. Delivered measurable improvements in organic traffic and keyword rankings within 3 months of execution.</div>
+        <div class="proj-tags">
+          <span class="tag">SEO</span>
+          <span class="tag">Google Search Console</span>
+          <span class="tag">Keyword Research</span>
+          <span class="tag">GA4</span>
+          <span class="tag">Link Building</span>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <div class="proj-visual-lbl">SEO</div>
+      </div>
+    </div>
+    <div class="proj">
+      <div class="proj-num">002</div>
+      <div class="proj-title">Meta Ads Campaign</div>
+      <div class="proj-desc">Planned and executed Facebook &amp; Instagram ad campaigns with precise audience targeting, creative strategy, A/B testing, and ROI optimization for lead generation and brand awareness goals.</div>
+      <div class="proj-tags">
+        <span class="tag">Meta Ads</span>
+        <span class="tag">Facebook</span>
+        <span class="tag">Instagram</span>
+        <span class="tag">A/B Testing</span>
+      </div>
+    </div>
+    <div class="proj">
+      <div class="proj-num">003</div>
+      <div class="proj-title">Google Ads Management</div>
+      <div class="proj-desc">Set up and managed Google Search &amp; Display campaigns — bid strategy, ad copywriting, negative keyword management, and conversion tracking to maximize efficiency and reduce cost-per-click.</div>
+      <div class="proj-tags">
+        <span class="tag">Google Ads</span>
+        <span class="tag">PPC</span>
+        <span class="tag">Conversion Tracking</span>
+        <span class="tag">Ad Copywriting</span>
+      </div>
+    </div>
+    <div class="proj">
+      <div class="proj-num">004</div>
+      <div class="proj-title">Personal Web Portfolio</div>
+      <div class="proj-desc">Built this portfolio website from scratch using HTML, CSS, and JavaScript — showcasing both my design sensibility and growing frontend development skills as part of my BCA learning journey.</div>
+      <div class="proj-tags">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">JavaScript</span>
+      </div>
+    </div>
+    <div class="proj">
+      <div class="proj-num">005</div>
+      <div class="proj-title">Brand Social Strategy</div>
+      <div class="proj-desc">Developed a comprehensive social media content calendar and growth strategy — achieving consistent engagement growth through organic content planning and paid promotion across multiple platforms.</div>
+      <div class="proj-tags">
+        <span class="tag">Social Media</span>
+        <span class="tag">Content Strategy</span>
+        <span class="tag">Brand Growth</span>
+        <span class="tag">Engagement</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="sec-label">Contact <span>/ 05</span></div>
+  <div class="contact-inner">
+    <h2>Let's connect<br>&amp; grow.</h2>
+    <p>I'm actively looking for internships, freelance projects, and full-time opportunities at MNCs. Whether it's digital marketing, team collaboration, or web development — I'm ready to contribute and grow. Let's talk.</p>
+    <a href="mailto:pradoshkumarrout@gmail.com" class="contact-email">pradoshkumarrout@gmail.com</a>
+    <div class="socials">
+      <a href="#" class="soc">LinkedIn</a>
+      <a href="#" class="soc">GitHub</a>
+      <a href="#" class="soc">Instagram</a>
+      <a href="#" class="soc">Twitter / X</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Pradosh Kumar Rout</span>
+  <span>BCA Student · Digital Marketer · Future MNC Professional</span>
+</footer>
+
+<script>
+// CUSTOM CURSOR
+const cur = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+let mx=0, my=0, rx=0, ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+(function tick(){
+  rx += (mx-rx)*0.12; ry += (my-ry)*0.12;
+  cur.style.left = mx+'px'; cur.style.top = my+'px';
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  requestAnimationFrame(tick);
+})();
+document.querySelectorAll('a,button,.skill,.proj,.stat,.exp-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cur.style.transform='translate(-50%,-50%) scale(2.2)';
+    cur.style.background='#ff6b35';
+    ring.style.width='56px'; ring.style.height='56px';
+    ring.style.borderColor='#ff6b35';
+  });
+  el.addEventListener('mouseleave', () => {
+    cur.style.transform='translate(-50%,-50%) scale(1)';
+    cur.style.background='var(--accent)';
+    ring.style.width='36px'; ring.style.height='36px';
+    ring.style.borderColor='var(--accent)';
+  });
+});
+
+// STICKY NAV
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ACTIVE NAV HIGHLIGHT
+const allSecs = document.querySelectorAll('section[id]');
+const navAs = document.querySelectorAll('.nav-links a');
+const secObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navAs.forEach(l => l.classList.remove('active'));
+      const a = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (a) a.classList.add('active');
+    }
+  });
+}, { threshold: 0.35 });
+allSecs.forEach(s => secObs.observe(s));
+
+// SKILL BARS on scroll
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const fill = e.target.querySelector('.skill-fill');
+      const lvl = e.target.dataset.level;
+      if (fill && lvl) setTimeout(() => { fill.style.width = lvl + '%'; }, 150);
+      barObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('.skill').forEach(el => barObs.observe(el));
+
+// COUNTER ANIMATION
+function countUp(el, target, suffix) {
+  const dur = 1400, start = performance.now();
+  (function step(now) {
+    const p = Math.min((now-start)/dur, 1);
+    const ease = 1 - Math.pow(1-p, 3);
+    el.textContent = Math.floor(ease*target) + suffix;
+    if (p < 1) requestAnimationFrame(step);
+  })(start);
+}
+const cntObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const num = e.target.querySelector('.stat-num');
+      if (!num) return;
+      const raw = num.textContent.trim();
+      const val = parseInt(raw);
+      if (!isNaN(val)) {
+        const suffix = raw.replace(/[0-9]/g, '');
+        countUp(num, val, suffix);
+      }
+      cntObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.6 });
+document.querySelectorAll('.stat').forEach(el => cntObs.observe(el));
+</script>
+</body>
+</html>
